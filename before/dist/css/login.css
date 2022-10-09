@@ -1,0 +1,55 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+.login {
+  border: 1px solid #000;
+  width: 400px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: auto;
+margin-top: 150px;
+padding: 50px;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  align-self: auto;
+}
+
+.label {
+  width: 250px;
+margin: 10px 20px;
+}
+
+.submit {
+  margin-bottom: 10px;
+ 
+  width: 80px;
+  height: 30px;
+}
+.title {
+  align-items: center;
+  display: flex;
+  height: 64px;
+
+}
+
+.toux1 {
+
+  height: 40px;
+  width: 40px;
+
+}
+
+.png {
+  font-size: 0;
+  border: 1px solid #000;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+}
