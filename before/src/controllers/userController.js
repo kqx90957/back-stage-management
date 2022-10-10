@@ -19,7 +19,8 @@ async function addevent (res) {
   let imgshow = document.querySelector(".imgshow");
   let btn = document.querySelector(".btn");
   let username = document.querySelector(".username");
-  let pwd=document.querySelector(".pwd")
+  let pwd = document.querySelector(".pwd");
+  let repeatpwd = document.querySelector(".repeatpwd");
   add.onclick = function () {
     adduser.style.display = "block";
     mask.style.display = "block";
@@ -42,20 +43,29 @@ async function addevent (res) {
     }
   }
   btn.onclick = async function () {
-    let imgurl = imgfile.files[0];
-    let formdata = new FormData();
-    formdata.append("usname",username.value)
-    formdata.append("pasword",pwd.value)
-    formdata.append("imgul", imgurl)
-    let resresult = await axios.post("/admin/adduser", formdata);
-    console.log(resresult.status);
-    if (resresult.status == '200') {
-      alert("添加成功")
-      adduser.style.display = "none";
-      mask.style.display = "none";
-      await getrender(res); // 调用ajax 获取最新的数据，然后再渲染到页面上
-      await addevent(res);
-   }
+    if (username.value) {
+      if (repeatpwd.value==pwd.value) {
+        let imgurl = imgfile.files[0];
+      let formdata = new FormData();
+      formdata.append("usname",username.value)
+      formdata.append("pasword",pwd.value)
+      formdata.append("imgul", imgurl)
+      let resresult = await axios.post("/admin/adduser", formdata);
+      if (resresult.status == '200') {
+        alert("添加成功")
+        adduser.style.display = "none";
+        mask.style.display = "none";
+        await getrender(res); // 调用ajax 获取最新的数据，然后再渲染到页面上
+        await addevent(res);
+     }
+      }
+      else {
+        alert("两次输入的密码不一样");
+      }
+    }
+    else {
+      alert("不能为空");
+    }
 }
 let deletebtn = document.querySelectorAll('.delBtn');
 deletebtn.forEach((item,index )=> {

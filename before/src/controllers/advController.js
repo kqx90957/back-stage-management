@@ -12,16 +12,15 @@ async function addevent(res) {
   let delBtn = document.querySelectorAll(".delBtn");
   let btn = document.querySelector(".btn");
   let page = document.querySelectorAll(".perpage");
-  
   addadv.onclick = function () {
     adduermodel.style.display = "block";
     mask.style.display = "block";
+    h3.innerHTML = "添加广告";
   }
   imgfile.onchange = function () {
     let files = imgfile.files[0];
     let filesread = new FileReader();
     filesread.readAsDataURL(files);
-
     filesread.onload = function () {
       imgshow.innerHTML = ' ';
       let simg = document.createElement("img");
@@ -31,17 +30,19 @@ async function addevent(res) {
       imgshow.appendChild(simg);
     }
   }
-  btn.onclick =async function () {
+  btn.onclick = async function () {
     let imgurl = imgfile.files[0];
     let advname = username.value;
     let form = new FormData();
     form.append("advname", advname);
     form.append("imgurl", imgurl);
+    if (advname) {
     await axios.post("/admin/postdata", form);
     await renderdata(res);
     await addevent(res);
-
-    
+    } else {
+      alert('不能为空');
+   } 
   }
   closebtn.onclick = function () {
     adduermodel.style.display = "none";
@@ -50,8 +51,7 @@ async function addevent(res) {
   delBtn.forEach((item, index) => {
     item.onclick =async function () {
       let _id = item.getAttribute("att");
-      let deletres = await axios.post("/admin/adv/delete", {_id,"num":index});
-      console.log(deletres);
+      await axios.post("/admin/adv/delete", {_id,"num":index});
       await renderdata(res);
       await addevent(res);
     }
@@ -65,8 +65,29 @@ async function addevent(res) {
   })
   //修改按钮
   let update = document.querySelectorAll(".update");
+  let h3 = document.querySelector(".adduermodel>h3 ");
   update.forEach((item, index) => {
-    item.onclick = function () {  
+    item.onclick =async function () {  
+      h3.innerHTML = "修改广告";
+      adduermodel.style.display = "block";
+      mask.style.display = "block";
+      let _id = item.getAttribute("att");
+      btn.onclick = async function () {
+        let imgurl = imgfile.files[0];
+        let advname = username.value;
+        let form = new FormData();
+        form.append("advname", advname);
+        form.append("imgurl", imgurl);
+        if (advname) {
+        await axios.post("/admin/adv/delete", {_id,"num":index});
+        await axios.post("/admin/postdata", form);
+        await renderdata(res);
+        await addevent(res);
+        } else {
+          alert('不能为空');
+       }       
+      }
+    
     }
   })
 }

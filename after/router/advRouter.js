@@ -41,4 +41,14 @@ router.post("/adv/delete", async (req, res) => {
   // })
   res.json("成功");
 })
+router.post("/adv/updata", async (req, res) => {
+  let _id = req.body._id;
+  // await adminadv.deleteOne({ _id });
+  // let result = await upfiles(req);
+  // result.data = new Date().toLocaleDateString();
+  // await adminadv.create(result);
+  // console.log(result);
+  res.json("修改成功");
+
+})
 module.exports = router;
